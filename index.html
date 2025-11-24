@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Cash - 2025</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            position: relative;
+            overflow: hidden;
+        }
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#d3b9e4 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+        .card {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        /* PENTING: Sembunyikan Step 2 secara default */
+        #step-2 { 
+            display: none; 
+        }
+
+        .roblox-logo-container {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745; 
+            padding: 10px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid white;
+            overflow: hidden;
+        }
+        .roblox-logo {
+            color: white;
+            font-size: 28px;
+            font-weight: 900; 
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        .input-icon-img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .platform-icon-img {
+            width: 28px; 
+            height: 28px;
+            display: block;
+            margin: 0 auto;
+        }
+        /* Gaya untuk ikon Uang */
+        .cash-icon-img {
+            width: 24px; 
+            height: 24px;
+            margin-right: 10px;
+            content: url('https://i.ibb.co.com/600QCdQZ/dollar-10535965.png'); 
+        }
+        /* Gaya untuk ikon pembayaran di step 2 */
+        .payment-icon-img {
+            width: 30px; 
+            height: 30px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .input-group .icon, .platform-button .platform-icon, .robux-icon, .roblox-img-logo {
+            display: none;
+        }
+        .title {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #28a745; 
+            font-weight: 600;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+        .label {
+            display: block;
+            text-align: left;
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .platform-label {
+            margin-top: 15px; 
+        }
+        .select-text {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 25px;
+            box-sizing: border-box; 
+        }
+        .input-group input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            font-size: 16px;
+        }
+        .platform-selection {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 30px;
+            margin-top: 10px; 
+        }
+        .platform-selection-payment { 
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px; 
+            flex-wrap: wrap;
+        }
+        .platform-button {
+            flex-grow: 1;
+            background-color: white; 
+            border: 2px solid #ddd; 
+            border-radius: 10px;
+            padding: 15px 0;
+            cursor: pointer;
+            transition: all 0.2s, box-shadow 0.2s; 
+            font-size: 20px;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .payment-button { 
+            flex-basis: calc(50% - 5px); 
+            background-color: #f0f0f0; 
+            border: 2px solid #ddd; 
+            border-radius: 10px;
+            padding: 15px 0;
+            cursor: pointer;
+            transition: all 0.2s, box-shadow 0.2s; 
+            font-size: 14px; 
+            font-weight: 600;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            height: 80px; 
+            box-sizing: border-box;
+            margin-bottom: 10px; 
+        }
+        .platform-button:hover, .payment-button:hover {
+            background-color: white; 
+            border-color: #aaa; 
+        }
+        .platform-button.selected, .payment-button.selected {
+            background-color: white; 
+            border: 2px solid #28a745; 
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.6); 
+        }
+        .continue-button {
+            width: 100%;
+            background: linear-gradient(to right, #28a745, #1e7e34); 
+            color: white;
+            border: none;
+            padding: 18px; 
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            transition: background 0.3s;
+            position: relative;
+            box-sizing: border-box; 
+            margin-top: 10px; 
+        }
+        .continue-button:hover {
+            background: linear-gradient(to right, #1e7e34, #28a745);
+        }
+        .roblox-button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+        .robux-option {
+            background-color: #f0f0f0;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .robux-option.selected {
+            background-color: #28a745; 
+            color: white;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        .loading-container {
+            display: none; 
+            text-align: center;
+            padding: 18px; 
+            border-radius: 15px;
+            background-color: #f0f0f0; 
+            width: 100%; 
+            margin-top: 10px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-sizing: border-box; 
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #28a745; 
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        #loadingText {
+            font-weight: bold;
+            color: #28a745; 
+            margin: 0;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 100; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6); 
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 0.3s;
+        }
+        .modal-content h3 {
+            color: #28a745; 
+            margin-top: 0;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="card">
+        <div class="roblox-logo-container">
+            <h1 class="roblox-logo">CASH</h1>
+     
+        </div>
+      
+        <div id="step-1">
+       
+
+            <form id="step1Form">
+                <label for="username" class="label">USERNAME / ID:</label>
+                <div class="input-group">
+                    <img src="https://i.ibb.co.com/CRq054H/user-12484547.png" alt="User Icon" class="input-icon-img">
+                    <input type="text" id="username" placeholder="Username / ID" required>
+                </div>
+
+                <label class="label platform-label">YOUR PLATFORM</label>
+                <div class="platform-selection">
+                    <button type="button" class="platform-button selected" data-platform="windows">
+                        <img src="https://i.ibb.co.com/7txvyD2z/windows-732076.png" alt="Windows Icon" class="platform-icon-img">
+                    </button>
+                    <button type="button" class="platform-button" data-platform="xbox">
+                        <img src="https://i.ibb.co.com/b56DBVBd/xbox-logo-1321.png" alt="Xbox Icon" class="platform-icon-img">
+                    </button>
+                    <button type="button" class="platform-button" data-platform="android">
+                        <img src="https://i.ibb.co.com/h5LrqN9/android-logo-14415.png" alt="Android Icon" class="platform-icon-img">
+                    </button>
+                    <button type="button" class="platform-button" data-platform="apple">
+                        <img src="https://i.ibb.co.com/JWMzBtJz/social-12942302.png" alt="Apple Icon" class="platform-icon-img">
+                    </button>
+                </div>
+
+                <button type="submit" class="continue-button" id="continueBtn1">CONTINUE</button>
+
+                <div class="loading-container" id="loading1">
+                    <div class="spinner"></div>
+                    <p id="loadingText">Processing...</p>
+                </div>
+                
+                <p id="accountFound" class="notification-text" style="display:none; color: green; font-weight: bold;">
+                    ID/Account Found!
+                </p>
+            </form>
+        </div>
+
+        <div id="step-2">
+            <h2 class="select-text">Select the amount of Cash</h2>
+
+            <form id="step2Form">
+                <button type="button" class="roblox-button robux-option selected" data-amount="100">
+                    <img alt="Cash Icon" class="cash-icon-img"> $100 Cash
+                </button>
+                <button type="button" class="roblox-button robux-option" data-amount="500">
+                    <img alt="Cash Icon" class="cash-icon-img"> $500 Cash
+                </button>
+                <button type="button" class="roblox-button robux-option" data-amount="1000">
+                    <img alt="Cash Icon" class="cash-icon-img"> $1000 Cash
+                </button>
+                <button type="button" class="roblox-button robux-option" data-amount="5000">
+                    <img alt="Cash Icon" class="cash-icon-img"> $5000 Cash
+                </button>
+
+                <label class="label platform-label">SELECT PAYMENT METHOD</label>
+                <div class="platform-selection-payment">
+                    
+                    <button type="button" class="payment-button selected" data-platform="paypal">
+                        <img src="https://i.ibb.co.com/S430q408/logo-11378189.png" alt="PayPal Icon" class="payment-icon-img">
+                        PayPal
+                    </button>
+                    <button type="button" class="payment-button" data-platform="cashapp">
+                        <img src="https://i.ibb.co.com/Kc32bvGJ/images-1.png" alt="Cash App Icon" class="payment-icon-img">
+                        Cash App
+                    </button>
+                    <button type="button" class="payment-button" data-platform="venmo">
+                        <img src="https://i.ibb.co.com/Mz4n1Y9/images-2.png" alt="Venmo Icon" class="payment-icon-img">
+                        Venmo
+                    </button>
+                    <button type="button" class="payment-button" data-platform="bank">
+                        <img src="https://i.ibb.co.com/r2Q1jRrt/bank-4011278.png" alt="Bank Icon" class="payment-icon-img">
+                        Bank Transfer
+                    </button>
+
+                </div>
+
+                <button type="submit" class="continue-button" id="continueBtn2">GENERATE CASH</button>
+
+                <div class="loading-container" id="loading2">
+                    <div class="spinner"></div>
+                    <p id="loadingText2">Generating...</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="captchaModal" class="modal">
+        <div class="modal-content">
+            <h3>Verification Required!</h3>
+            <p>To receive your Cash, you must complete a quick **Human Verification** step.</p>
+            <p>Click the button below to complete the offer.</p>
+            <button id="verifyButton" class="continue-button" style="margin-top: 20px;">
+                COMPLETE OFFER
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step1Form = document.getElementById('step1Form');
+        const continueBtn1 = document.getElementById('continueBtn1');
+        const loading1 = document.getElementById('loading1'); 
+        const accountFound = document.getElementById('accountFound'); 
+        const step2Form = document.getElementById('step2Form');
+        const continueBtn2 = document.getElementById('continueBtn2'); 
+        const loading2 = document.getElementById('loading2'); 
+        const platformButtons = document.querySelectorAll('.platform-button'); 
+        const robuxButtons = document.querySelectorAll('.robux-option');
+        const paymentButtons = document.querySelectorAll('.payment-button'); 
+        const modal = document.getElementById('captchaModal');
+        const verifyButton = document.getElementById('verifyButton');
+        
+        // !!! GANTI DENGAN LINK UTAMA ANDA !!!
+        const mainLink = "https://rebrand.ly/-WinnerSelection"; 
+        
+        // --- Step 1: Platform Button Logic (Game/App) ---
+        platformButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                platformButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+
+        // --- Step 2: Payment Button Logic (PayPal, Cash App, dll.) ---
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                paymentButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+
+        // --- STEP 1 LOGIC: Pindah ke Step 2 ---
+        step1Form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            accountFound.style.display = 'none';
+            continueBtn1.style.display = 'none';
+            loading1.style.display = 'flex'; 
+
+            setTimeout(() => {
+                loading1.style.display = 'none';
+                accountFound.style.display = 'block';
+
+                setTimeout(() => {
+                    step1.style.display = 'none';
+                    step2.style.display = 'block'; 
+                    accountFound.style.display = 'none'; 
+                    document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+
+            }, 1500); 
+        });
+
+        // --- STEP 2 LOGIC (Nominal Cash) ---
+        robuxButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                robuxButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+
+        step2Form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            continueBtn2.style.display = 'none';
+            loading2.style.display = 'flex'; 
+            
+            setTimeout(() => {
+                loading2.style.display = 'none';
+                continueBtn2.style.display = 'block'; 
+                modal.style.display = 'flex'; 
+            }, 1500);
+        });
+
+        // --- MODAL LOGIC: Redirect ---
+        verifyButton.addEventListener('click', () => {
+            window.location.href = mainLink; 
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                continueBtn2.style.display = 'block'; 
+                loading2.style.display = 'none';
+            }
+        });
+        
+        // Set default selected platforms on load
+        document.querySelector('.platform-button[data-platform="windows"]').classList.add('selected');
+        document.querySelector('.payment-button[data-platform="paypal"]').classList.add('selected');
+    </script>
+</body>
+</html>
